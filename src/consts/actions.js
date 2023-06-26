@@ -1,13 +1,13 @@
-import { deleteLastElement } from '../fs/del-last-el.js';
 import { list } from '../fs/list.js';
 import { cd } from '../fs/cd.js';
+import { cat } from '../fs/cat.js';
 
 export const ACTIONS = {
   up: async (currentDir) => await cd('..', currentDir),
   cd: async (dir, currentDir) => await cd(dir, currentDir),
   ls: async (currentDir) => await list(currentDir),
-  'cat path_to_file': `Read file and print it's content`,
-  'add new_file_name': 'Create empty file in current working directory',
+  cat: (file, currentDir) => cat(file, currentDir),
+  add: 'Create empty file in current working directory',
   'rn path_to_file new_filename': 'Rename file',
   'cp path_to_file path_to_new_directory': 'Copy file',
   'mv path_to_file path_to_new_directory': 'Move file',

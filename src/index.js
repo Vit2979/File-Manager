@@ -27,12 +27,13 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', async line => {
-  if (line === '.exit') rl.close();
-  else {
-    const action = line.split(' ')[0];
-    if (ACTIONS[action]) {
-      switch (action) {
-        case 'up':
+    let dirPrintMode = true;
+    if (line === '.exit') rl.close();
+    else {
+      const action = line.split(' ')[0];
+      if (ACTIONS[action]) {
+        switch (action) {
+          case 'up':
             currentDir = await ACTIONS.up(currentDir);
             break;
           case 'cd':
@@ -41,14 +42,20 @@ rl.on('line', async line => {
           case 'ls':
             currentDir = await ACTIONS.ls(currentDir);
             break;
-          default:
-  
+          case 'cat':
+            ACTIONS.cat(line.slice(4, line.length), currentDir);
+            dirPrintMode = false;
+            break;
+          case 'add':
+            ACTIONS.add(line.slice(4, line.length), currentDir);
+            dirPrintMode = false;
+            break;
+          default:  
         } 
       } else {
         console.log('\x1b[31mInvalid input');
       }
-  
-    printCurrentDir();
+      if (dirPrintMode) printCurrentDir();  
   }
 });
 
