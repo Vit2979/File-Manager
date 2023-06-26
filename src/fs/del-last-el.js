@@ -1,4 +1,4 @@
 export const deleteLastElement = (arr) => {
-    arr.pop();
+    if (arr.length > 1) arr.pop();
     return arr;
   }
