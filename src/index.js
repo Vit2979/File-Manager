@@ -50,6 +50,18 @@ rl.on('line', async line => {
             ACTIONS.add(line.slice(4, line.length), currentDir);
             dirPrintMode = false;
             break;
+            case 'rn':
+                const oldFileName = line.split(' ')[1];
+                const newFileName = line.split(' ')[2];
+                ACTIONS.rn(oldFileName, newFileName, currentDir);
+                dirPrintMode = false;
+                break;
+              case 'cp':
+                const oldFilePath = line.split(' ')[1];
+                const newDirName = line.split(' ')[2];
+                ACTIONS.cp(oldFilePath, newDirName, currentDir);
+                dirPrintMode = false;
+                break;      
           default:  
         } 
       } else {

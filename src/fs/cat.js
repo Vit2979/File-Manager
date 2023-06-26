@@ -17,7 +17,7 @@ export const cat = async (file, currentDir) => {
 
       myReadStream.on('end', () => printCurrentDir());
     } catch (error) {
-      process.stdout.write('Read stream error\n')
+      process.stdout.write('Read stream error\n');
     }
   }
 
