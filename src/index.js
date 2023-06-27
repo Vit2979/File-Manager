@@ -31,6 +31,8 @@ rl.on('line', async line => {
     if (line === '.exit') rl.close();
     else {
       const action = line.split(' ')[0];
+      let oldFilePath;
+      let newDirName; 
       if (ACTIONS[action]) {
         switch (action) {
           case 'up':
@@ -57,10 +59,23 @@ rl.on('line', async line => {
                 dirPrintMode = false;
                 break;
               case 'cp':
-                const oldFilePath = line.split(' ')[1];
-                const newDirName = line.split(' ')[2];
-                ACTIONS.cp(oldFilePath, newDirName, currentDir);
+                oldFilePath = line.split(' ')[1];
+                newDirName = line.split(' ')[2];
+                ACTIONS.cp(oldFilePath, newDirName, currentDir, false);
                 dirPrintMode = false;
+                break;
+              case 'mv':
+                oldFilePath = line.split(' ')[1];
+                newDirName = line.split(' ')[2];
+                ACTIONS.mv(oldFilePath, newDirName, currentDir, true);
+                dirPrintMode = false;
+                break;
+              case 'rm':
+                ACTIONS.rm(line.slice(3, line.length), currentDir);
+                dirPrintMode = false;
+                break;
+              case 'os':
+                ACTIONS.os(line.slice(5, line.length));      
                 break;      
           default:  
         } 

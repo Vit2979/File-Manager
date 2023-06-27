@@ -1,8 +1,9 @@
 import * as path from 'path';
 import { access, stat } from 'fs/promises';
 import { copyFile, mkdir } from 'fs/promises';
+import { unlink } from 'fs/promises';
 
-export const cp = async (oldFilePath, newDirName, currentDir) => {
+export const cp = async (oldFilePath, newDirName, currentDir, moveMode) => {
   const printCurrentDir = () => console.log(`\x1b[37m\nYou are currently in ${currentDir}`);
 
   const copyOldFile = async () => {
@@ -13,7 +14,11 @@ export const cp = async (oldFilePath, newDirName, currentDir) => {
         recursive: true
       });
       await copyFile(prevFilePath, nextFilePath);
-      console.log('File copied');
+      if (moveMode) {
+        await access(oldFilePath);
+        await unlink(oldFilePath);
+        console.log('File moved');
+      } else console.log('File copied');
     } catch (error) {
       console.log('Operation is not permitted!');
     }
