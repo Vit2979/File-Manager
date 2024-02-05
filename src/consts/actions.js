@@ -6,6 +6,9 @@ import { rn } from '../fs/rn.js';
 import { cp } from '../fs/cp.js';
 import { rm } from '../fs/rm.js';
 import { osMethods } from '../os/os.js';
+import { calculateHash } from '../fs/hash.js';
+import { compress } from '../fs/compress.js';
+import { decompress } from '../fs/decompress.js';
 
 export const ACTIONS = {
   up: async (currentDir) => await cd('..', currentDir),
@@ -18,7 +21,8 @@ export const ACTIONS = {
   mv: (oldFilePath, newDirName, currentDir, moveMode) => cp(oldFilePath, newDirName, currentDir, moveMode),
   rm: (fileToDeletePath, currentDir) => rm(fileToDeletePath, currentDir),
   os: mode => osMethods(mode),
-  'hash path_to_file': 'Calculate hash for file',
-  'compress path_to_file path_to_destination': 'Compress file',
-  'decompress path_to_file path_to_destination': 'Decompress file'
+  hash: (filePath, currentDir) => calculateHash(filePath, currentDir),
+  compress: (oldFilePath, newDirName, currentDir) => compress(oldFilePath, newDirName, currentDir),
+  decompress: (oldFilePath, newDirName, currentDir) => decompress(oldFilePath, newDirName, currentDir),
+
 }

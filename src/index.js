@@ -74,6 +74,22 @@ rl.on('line', async line => {
                 ACTIONS.rm(line.slice(3, line.length), currentDir);
                 dirPrintMode = false;
                 break;
+                case 'hash':
+                  ACTIONS.hash(line.slice(5, line.length), currentDir);
+                  dirPrintMode = false;
+                  break;
+                case 'compress':
+                  oldFilePath = line.split(' ')[1];
+                  newDirName = line.split(' ')[2];
+                  ACTIONS.compress(oldFilePath, newDirName, currentDir);
+                  dirPrintMode = false;
+                  break;
+                case 'decompress':
+                  oldFilePath = line.split(' ')[1];
+                  newDirName = line.split(' ')[2];
+                  ACTIONS.decompress(oldFilePath, newDirName, currentDir);
+                  dirPrintMode = false;
+                  break;
               case 'os':
                 ACTIONS.os(line.slice(5, line.length));      
                 break;      
